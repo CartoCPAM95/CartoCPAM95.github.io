@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/TauxdedpistagecancercolorectalDODI_0.js"></script>
+        <script src="data/TauxdedpistagecancerduseinDODI_1.js"></script>
+        <script src="data/TauxdedpistagecancerducoldelutrusDODI_2.js"></script>
+        <script src="data/DlimitationIris_3.js"></script>
+        <script src="data/Dlimitationcommune_4.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:13, minZoom:13
+        }).fitBounds([[48.95574565765609,2.198138645732292],[49.03196451786296,2.391722639483634]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        function pop_TauxdedpistagecancercolorectalDODI_0(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['INSEE_COM'] !== null ? autolinker.link(feature.properties['INSEE_COM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOM_COM'] !== null ? autolinker.link(feature.properties['NOM_COM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['IRIS'] !== null ? autolinker.link(feature.properties['IRIS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CODE_IRIS'] !== null ? autolinker.link(feature.properties['CODE_IRIS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOM_IRIS'] !== null ? autolinker.link(feature.properties['NOM_IRIS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TYP_IRIS'] !== null ? autolinker.link(feature.properties['TYP_IRIS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CPTS'] !== null ? autolinker.link(feature.properties['CPTS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TOP_CCR'] !== null ? autolinker.link(feature.properties['TOP_CCR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCR_OK'] !== null ? autolinker.link(feature.properties['CCR_OK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCR_DO'] !== null ? autolinker.link(feature.properties['CCR_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCR_DI'] !== null ? autolinker.link(feature.properties['CCR_DI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TOP_CS'] !== null ? autolinker.link(feature.properties['TOP_CS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CS_OK'] !== null ? autolinker.link(feature.properties['CS_OK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CS_DO'] !== null ? autolinker.link(feature.properties['CS_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CS_DI'] !== null ? autolinker.link(feature.properties['CS_DI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TOP_CCU'] !== null ? autolinker.link(feature.properties['TOP_CCU'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCU_OK'] !== null ? autolinker.link(feature.properties['CCU_OK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCU_DO'] !== null ? autolinker.link(feature.properties['CCU_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCU_DI'] !== null ? autolinker.link(feature.properties['CCU_DI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CCR'] !== null ? autolinker.link(feature.properties['Taux_CCR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CCR_DO'] !== null ? autolinker.link(feature.properties['Taux_CCR_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CS'] !== null ? autolinker.link(feature.properties['Taux_CS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CS_DO'] !== null ? autolinker.link(feature.properties['Taux_CS_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CCU'] !== null ? autolinker.link(feature.properties['Taux_CCU'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CCU_DO'] !== null ? autolinker.link(feature.properties['Taux_CCU_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_TauxdedpistagecancercolorectalDODI_0_0(feature) {
+            if (feature.properties['Taux_CCR'] >= -2.000000 && feature.properties['Taux_CCR'] <= 0.000000 ) {
+                return {
+                pane: 'pane_TauxdedpistagecancercolorectalDODI_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Taux_CCR'] >= 0.000000 && feature.properties['Taux_CCR'] <= 0.240000 ) {
+                return {
+                pane: 'pane_TauxdedpistagecancercolorectalDODI_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,204,184,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Taux_CCR'] >= 0.240000 && feature.properties['Taux_CCR'] <= 0.290000 ) {
+                return {
+                pane: 'pane_TauxdedpistagecancercolorectalDODI_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(252,143,111,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Taux_CCR'] >= 0.290000 && feature.properties['Taux_CCR'] <= 0.340000 ) {
+                return {
+                pane: 'pane_TauxdedpistagecancercolorectalDODI_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(244,77,56,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Taux_CCR'] >= 0.340000 && feature.properties['Taux_CCR'] <= 0.390000 ) {
+                return {
+                pane: 'pane_TauxdedpistagecancercolorectalDODI_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(197,22,28,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Taux_CCR'] >= 0.390000 && feature.properties['Taux_CCR'] <= 1.000000 ) {
+                return {
+                pane: 'pane_TauxdedpistagecancercolorectalDODI_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(103,0,13,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_TauxdedpistagecancercolorectalDODI_0');
+        map.getPane('pane_TauxdedpistagecancercolorectalDODI_0').style.zIndex = 400;
+        map.getPane('pane_TauxdedpistagecancercolorectalDODI_0').style['mix-blend-mode'] = 'normal';
+        var layer_TauxdedpistagecancercolorectalDODI_0 = new L.geoJson(json_TauxdedpistagecancercolorectalDODI_0, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_TauxdedpistagecancercolorectalDODI_0',
+            layerName: 'layer_TauxdedpistagecancercolorectalDODI_0',
+            pane: 'pane_TauxdedpistagecancercolorectalDODI_0',
+            onEachFeature: pop_TauxdedpistagecancercolorectalDODI_0,
+            style: style_TauxdedpistagecancercolorectalDODI_0_0,
+        });
+        bounds_group.addLayer(layer_TauxdedpistagecancercolorectalDODI_0);
+        function pop_TauxdedpistagecancerduseinDODI_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['INSEE_COM'] !== null ? autolinker.link(feature.properties['INSEE_COM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOM_COM'] !== null ? autolinker.link(feature.properties['NOM_COM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['IRIS'] !== null ? autolinker.link(feature.properties['IRIS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CODE_IRIS'] !== null ? autolinker.link(feature.properties['CODE_IRIS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOM_IRIS'] !== null ? autolinker.link(feature.properties['NOM_IRIS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TYP_IRIS'] !== null ? autolinker.link(feature.properties['TYP_IRIS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CPTS'] !== null ? autolinker.link(feature.properties['CPTS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TOP_CCR'] !== null ? autolinker.link(feature.properties['TOP_CCR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCR_OK'] !== null ? autolinker.link(feature.properties['CCR_OK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCR_DO'] !== null ? autolinker.link(feature.properties['CCR_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCR_DI'] !== null ? autolinker.link(feature.properties['CCR_DI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TOP_CS'] !== null ? autolinker.link(feature.properties['TOP_CS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CS_OK'] !== null ? autolinker.link(feature.properties['CS_OK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CS_DO'] !== null ? autolinker.link(feature.properties['CS_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CS_DI'] !== null ? autolinker.link(feature.properties['CS_DI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TOP_CCU'] !== null ? autolinker.link(feature.properties['TOP_CCU'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCU_OK'] !== null ? autolinker.link(feature.properties['CCU_OK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCU_DO'] !== null ? autolinker.link(feature.properties['CCU_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCU_DI'] !== null ? autolinker.link(feature.properties['CCU_DI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CCR'] !== null ? autolinker.link(feature.properties['Taux_CCR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CCR_DO'] !== null ? autolinker.link(feature.properties['Taux_CCR_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CS'] !== null ? autolinker.link(feature.properties['Taux_CS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CS_DO'] !== null ? autolinker.link(feature.properties['Taux_CS_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CCU'] !== null ? autolinker.link(feature.properties['Taux_CCU'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CCU_DO'] !== null ? autolinker.link(feature.properties['Taux_CCU_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_TauxdedpistagecancerduseinDODI_1_0(feature) {
+            if (feature.properties['Taux_CS'] >= -2.000000 && feature.properties['Taux_CS'] <= 0.000000 ) {
+                return {
+                pane: 'pane_TauxdedpistagecancerduseinDODI_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Taux_CS'] >= 0.000000 && feature.properties['Taux_CS'] <= 0.540000 ) {
+                return {
+                pane: 'pane_TauxdedpistagecancerduseinDODI_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(213,239,207,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Taux_CS'] >= 0.540000 && feature.properties['Taux_CS'] <= 0.590000 ) {
+                return {
+                pane: 'pane_TauxdedpistagecancerduseinDODI_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(158,215,152,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Taux_CS'] >= 0.590000 && feature.properties['Taux_CS'] <= 0.640000 ) {
+                return {
+                pane: 'pane_TauxdedpistagecancerduseinDODI_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(85,181,103,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Taux_CS'] >= 0.640000 && feature.properties['Taux_CS'] <= 0.690000 ) {
+                return {
+                pane: 'pane_TauxdedpistagecancerduseinDODI_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(29,134,65,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Taux_CS'] >= 0.690000 && feature.properties['Taux_CS'] <= 1.000000 ) {
+                return {
+                pane: 'pane_TauxdedpistagecancerduseinDODI_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,68,27,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_TauxdedpistagecancerduseinDODI_1');
+        map.getPane('pane_TauxdedpistagecancerduseinDODI_1').style.zIndex = 401;
+        map.getPane('pane_TauxdedpistagecancerduseinDODI_1').style['mix-blend-mode'] = 'normal';
+        var layer_TauxdedpistagecancerduseinDODI_1 = new L.geoJson(json_TauxdedpistagecancerduseinDODI_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_TauxdedpistagecancerduseinDODI_1',
+            layerName: 'layer_TauxdedpistagecancerduseinDODI_1',
+            pane: 'pane_TauxdedpistagecancerduseinDODI_1',
+            onEachFeature: pop_TauxdedpistagecancerduseinDODI_1,
+            style: style_TauxdedpistagecancerduseinDODI_1_0,
+        });
+        bounds_group.addLayer(layer_TauxdedpistagecancerduseinDODI_1);
+        function pop_TauxdedpistagecancerducoldelutrusDODI_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['INSEE_COM'] !== null ? autolinker.link(feature.properties['INSEE_COM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOM_COM'] !== null ? autolinker.link(feature.properties['NOM_COM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['IRIS'] !== null ? autolinker.link(feature.properties['IRIS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CODE_IRIS'] !== null ? autolinker.link(feature.properties['CODE_IRIS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOM_IRIS'] !== null ? autolinker.link(feature.properties['NOM_IRIS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TYP_IRIS'] !== null ? autolinker.link(feature.properties['TYP_IRIS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CPTS'] !== null ? autolinker.link(feature.properties['CPTS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TOP_CCR'] !== null ? autolinker.link(feature.properties['TOP_CCR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCR_OK'] !== null ? autolinker.link(feature.properties['CCR_OK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCR_DO'] !== null ? autolinker.link(feature.properties['CCR_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCR_DI'] !== null ? autolinker.link(feature.properties['CCR_DI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TOP_CS'] !== null ? autolinker.link(feature.properties['TOP_CS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CS_OK'] !== null ? autolinker.link(feature.properties['CS_OK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CS_DO'] !== null ? autolinker.link(feature.properties['CS_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CS_DI'] !== null ? autolinker.link(feature.properties['CS_DI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TOP_CCU'] !== null ? autolinker.link(feature.properties['TOP_CCU'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCU_OK'] !== null ? autolinker.link(feature.properties['CCU_OK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCU_DO'] !== null ? autolinker.link(feature.properties['CCU_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCU_DI'] !== null ? autolinker.link(feature.properties['CCU_DI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CCR'] !== null ? autolinker.link(feature.properties['Taux_CCR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CCR_DO'] !== null ? autolinker.link(feature.properties['Taux_CCR_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CS'] !== null ? autolinker.link(feature.properties['Taux_CS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CS_DO'] !== null ? autolinker.link(feature.properties['Taux_CS_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CCU'] !== null ? autolinker.link(feature.properties['Taux_CCU'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CCU_DO'] !== null ? autolinker.link(feature.properties['Taux_CCU_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_TauxdedpistagecancerducoldelutrusDODI_2_0(feature) {
+            if (feature.properties['Taux_CCU'] >= -2.000000 && feature.properties['Taux_CCU'] <= 0.000000 ) {
+                return {
+                pane: 'pane_TauxdedpistagecancerducoldelutrusDODI_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(247,251,255,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Taux_CCU'] >= 0.000000 && feature.properties['Taux_CCU'] <= 0.390000 ) {
+                return {
+                pane: 'pane_TauxdedpistagecancerducoldelutrusDODI_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(209,226,243,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Taux_CCU'] >= 0.390000 && feature.properties['Taux_CCU'] <= 0.440000 ) {
+                return {
+                pane: 'pane_TauxdedpistagecancerducoldelutrusDODI_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(154,200,224,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Taux_CCU'] >= 0.440000 && feature.properties['Taux_CCU'] <= 0.490000 ) {
+                return {
+                pane: 'pane_TauxdedpistagecancerducoldelutrusDODI_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(82,157,204,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Taux_CCU'] >= 0.490000 && feature.properties['Taux_CCU'] <= 0.540000 ) {
+                return {
+                pane: 'pane_TauxdedpistagecancerducoldelutrusDODI_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(29,108,177,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Taux_CCU'] >= 0.540000 && feature.properties['Taux_CCU'] <= 1.000000 ) {
+                return {
+                pane: 'pane_TauxdedpistagecancerducoldelutrusDODI_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(8,48,107,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_TauxdedpistagecancerducoldelutrusDODI_2');
+        map.getPane('pane_TauxdedpistagecancerducoldelutrusDODI_2').style.zIndex = 402;
+        map.getPane('pane_TauxdedpistagecancerducoldelutrusDODI_2').style['mix-blend-mode'] = 'normal';
+        var layer_TauxdedpistagecancerducoldelutrusDODI_2 = new L.geoJson(json_TauxdedpistagecancerducoldelutrusDODI_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_TauxdedpistagecancerducoldelutrusDODI_2',
+            layerName: 'layer_TauxdedpistagecancerducoldelutrusDODI_2',
+            pane: 'pane_TauxdedpistagecancerducoldelutrusDODI_2',
+            onEachFeature: pop_TauxdedpistagecancerducoldelutrusDODI_2,
+            style: style_TauxdedpistagecancerducoldelutrusDODI_2_0,
+        });
+        bounds_group.addLayer(layer_TauxdedpistagecancerducoldelutrusDODI_2);
+        map.addLayer(layer_TauxdedpistagecancerducoldelutrusDODI_2);
+        function pop_DlimitationIris_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['INSEE_COM'] !== null ? autolinker.link(feature.properties['INSEE_COM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOM_COM'] !== null ? autolinker.link(feature.properties['NOM_COM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['IRIS'] !== null ? autolinker.link(feature.properties['IRIS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CODE_IRIS'] !== null ? autolinker.link(feature.properties['CODE_IRIS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOM_IRIS'] !== null ? autolinker.link(feature.properties['NOM_IRIS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TYP_IRIS'] !== null ? autolinker.link(feature.properties['TYP_IRIS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CPTS'] !== null ? autolinker.link(feature.properties['CPTS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TOP_CCR'] !== null ? autolinker.link(feature.properties['TOP_CCR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCR_OK'] !== null ? autolinker.link(feature.properties['CCR_OK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCR_DO'] !== null ? autolinker.link(feature.properties['CCR_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCR_DI'] !== null ? autolinker.link(feature.properties['CCR_DI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TOP_CS'] !== null ? autolinker.link(feature.properties['TOP_CS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CS_OK'] !== null ? autolinker.link(feature.properties['CS_OK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CS_DO'] !== null ? autolinker.link(feature.properties['CS_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CS_DI'] !== null ? autolinker.link(feature.properties['CS_DI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TOP_CCU'] !== null ? autolinker.link(feature.properties['TOP_CCU'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCU_OK'] !== null ? autolinker.link(feature.properties['CCU_OK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCU_DO'] !== null ? autolinker.link(feature.properties['CCU_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CCU_DI'] !== null ? autolinker.link(feature.properties['CCU_DI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CCR'] !== null ? autolinker.link(feature.properties['Taux_CCR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CCR_DO'] !== null ? autolinker.link(feature.properties['Taux_CCR_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CS'] !== null ? autolinker.link(feature.properties['Taux_CS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CS_DO'] !== null ? autolinker.link(feature.properties['Taux_CS_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CCU'] !== null ? autolinker.link(feature.properties['Taux_CCU'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Taux_CCU_DO'] !== null ? autolinker.link(feature.properties['Taux_CCU_DO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_DlimitationIris_3_0() {
+            return {
+                pane: 'pane_DlimitationIris_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(152,125,183,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_DlimitationIris_3');
+        map.getPane('pane_DlimitationIris_3').style.zIndex = 403;
+        map.getPane('pane_DlimitationIris_3').style['mix-blend-mode'] = 'normal';
+        var layer_DlimitationIris_3 = new L.geoJson(json_DlimitationIris_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_DlimitationIris_3',
+            layerName: 'layer_DlimitationIris_3',
+            pane: 'pane_DlimitationIris_3',
+            onEachFeature: pop_DlimitationIris_3,
+            style: style_DlimitationIris_3_0,
+        });
+        bounds_group.addLayer(layer_DlimitationIris_3);
+        map.addLayer(layer_DlimitationIris_3);
+        function pop_Dlimitationcommune_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOM_COM'] !== null ? autolinker.link(feature.properties['NOM_COM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Dlimitationcommune_4_0() {
+            return {
+                pane: 'pane_Dlimitationcommune_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(243,166,178,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Dlimitationcommune_4');
+        map.getPane('pane_Dlimitationcommune_4').style.zIndex = 404;
+        map.getPane('pane_Dlimitationcommune_4').style['mix-blend-mode'] = 'normal';
+        var layer_Dlimitationcommune_4 = new L.geoJson(json_Dlimitationcommune_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Dlimitationcommune_4',
+            layerName: 'layer_Dlimitationcommune_4',
+            pane: 'pane_Dlimitationcommune_4',
+            onEachFeature: pop_Dlimitationcommune_4,
+            style: style_Dlimitationcommune_4_0,
+        });
+        bounds_group.addLayer(layer_Dlimitationcommune_4);
+        map.addLayer(layer_Dlimitationcommune_4);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Dlimitationcommune_4.png" /> Délimitation commune': layer_Dlimitationcommune_4,'<img src="legend/DlimitationIris_3.png" /> Délimitation Iris': layer_DlimitationIris_3,'Taux de dépistage cancer du col de l\'utérus (DO+DI)<br /><table><tr><td style="text-align: center;"><img src="legend/TauxdedpistagecancerducoldelutrusDODI_2_nonsign0.png" /></td><td>non sign.</td></tr><tr><td style="text-align: center;"><img src="legend/TauxdedpistagecancerducoldelutrusDODI_2_401.png" /></td><td>< 40%</td></tr><tr><td style="text-align: center;"><img src="legend/TauxdedpistagecancerducoldelutrusDODI_2_40452.png" /></td><td>[40% - 45%[</td></tr><tr><td style="text-align: center;"><img src="legend/TauxdedpistagecancerducoldelutrusDODI_2_45503.png" /></td><td>[45% - 50%[</td></tr><tr><td style="text-align: center;"><img src="legend/TauxdedpistagecancerducoldelutrusDODI_2_50554.png" /></td><td>[50% - 55%</td></tr><tr><td style="text-align: center;"><img src="legend/TauxdedpistagecancerducoldelutrusDODI_2_555.png" /></td><td>>= 55%</td></tr></table>': layer_TauxdedpistagecancerducoldelutrusDODI_2,'Taux de dépistage cancer du sein (DO+DI)<br /><table><tr><td style="text-align: center;"><img src="legend/TauxdedpistagecancerduseinDODI_1_nonsign0.png" /></td><td>non sign.</td></tr><tr><td style="text-align: center;"><img src="legend/TauxdedpistagecancerduseinDODI_1_551.png" /></td><td>< 55%</td></tr><tr><td style="text-align: center;"><img src="legend/TauxdedpistagecancerduseinDODI_1_55602.png" /></td><td>[55% - 60%[</td></tr><tr><td style="text-align: center;"><img src="legend/TauxdedpistagecancerduseinDODI_1_60653.png" /></td><td>[60% - 65%[</td></tr><tr><td style="text-align: center;"><img src="legend/TauxdedpistagecancerduseinDODI_1_65704.png" /></td><td>[65% - 70%[</td></tr><tr><td style="text-align: center;"><img src="legend/TauxdedpistagecancerduseinDODI_1_705.png" /></td><td>>= 70%</td></tr></table>': layer_TauxdedpistagecancerduseinDODI_1,'Taux de dépistage cancer colorectal (DO+DI)<br /><table><tr><td style="text-align: center;"><img src="legend/TauxdedpistagecancercolorectalDODI_0_nonsign0.png" /></td><td>non sign.</td></tr><tr><td style="text-align: center;"><img src="legend/TauxdedpistagecancercolorectalDODI_0_251.png" /></td><td>< 25%</td></tr><tr><td style="text-align: center;"><img src="legend/TauxdedpistagecancercolorectalDODI_0_25302.png" /></td><td>[25% - 30%[</td></tr><tr><td style="text-align: center;"><img src="legend/TauxdedpistagecancercolorectalDODI_0_30353.png" /></td><td>[30% - 35%[</td></tr><tr><td style="text-align: center;"><img src="legend/TauxdedpistagecancercolorectalDODI_0_35404.png" /></td><td>[35% - 40%[</td></tr><tr><td style="text-align: center;"><img src="legend/TauxdedpistagecancercolorectalDODI_0_405.png" /></td><td>>= 40%</td></tr></table>': layer_TauxdedpistagecancercolorectalDODI_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        resetLabels([layer_Dlimitationcommune_4]);
+        map.on("zoomend", function(){
+            resetLabels([layer_Dlimitationcommune_4]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_Dlimitationcommune_4]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_Dlimitationcommune_4]);
+        });
+        </script>
+    </body>
+</html>
